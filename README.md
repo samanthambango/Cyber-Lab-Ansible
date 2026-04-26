@@ -1,7 +1,8 @@
 ## Infrastructure Automation & Security Lab
 
 Ce dépôt contient les scripts d'automatisation Ansible utilisés pour déployer et sécuriser mon infrastructure réseau personnelle (HomeLab). L'objectif est de simuler un environnement d'entreprise robuste en isolant les services et en centralisant l'administration.
-Architecture du Lab
+
+## Architecture du Lab
 
 L'infrastructure est virtualisée sous VirtualBox et segmentée derrière un firewall **pfSense**.
 
