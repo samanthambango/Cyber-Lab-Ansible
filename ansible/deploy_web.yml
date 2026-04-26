@@ -1,1 +1,28 @@
+---
+- name: Configuration de mon premier serveur web
+  hosts: web
+  become: yes # execute en tant que sudo
+
+  tasks:
+    - name: Installation du serveur Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Generer la page d'accueil dynamique
+      template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+
+    - name: Demarrage du servive Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Installation outil de surveillance du serveur web Nginx
+      apt:
+        name: htop
+        state: present
 
