@@ -19,6 +19,9 @@
             location / {
               proxy_pass http://192.168.1.11;
               proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              add_header X-Frame-Options "SAMEORIGIN"; # Sécurité
+              add_header X-XSS-Protection "1; mode=block";
             }
           }
 
