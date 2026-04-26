@@ -1,32 +1,34 @@
-## Infrastructure Automation & Security Lab
+# 🛡️ Network Security & Automation Lab
 
-Ce dépôt contient les scripts d'automatisation Ansible utilisés pour déployer et sécuriser mon infrastructure réseau personnelle (HomeLab). L'objectif est de simuler un environnement d'entreprise robuste en isolant les services et en centralisant l'administration.
+Ce projet présente l'automatisation et la sécurisation d'une infrastructure réseau virtualisée via **Ansible**. L'objectif est de démontrer la mise en place d'une architecture résiliente, segmentée et protégée par un Reverse Proxy.
 
-## Architecture du Lab
+##  Architecture du Réseau
+L'infrastructure est déployée sur **VirtualBox** avec une segmentation réseau via **pfSense**.
 
-L'infrastructure est virtualisée sous VirtualBox et segmentée derrière un firewall **pfSense**.
+* **SVR-ADMIN** : Station d'administration et nœud de contrôle Ansible.
+* **SVR-PROXY** : Reverse Proxy Nginx agissant comme unique point d'entrée (DMZ).
+* **SVR-WEB-01** : Serveur d'application isolé du flux internet direct.
+* **SVR-AD-01** : Contrôleur de domaine Active Directory pour la gestion des identités.
 
-    SVR-ADMIN (Debian) : Centre de contrôle Ansible.
+---
 
-    SVR-PROXY (Debian) : Reverse Proxy Nginx (Point d'entrée unique).
+##  Fonctionnalités Clés
 
-    SVR-WEB-01 (Debian) : Serveur d'application (Isolé du flux direct).
+###  Sécurité Offensive & Défensive
+* **Masquage d'Infrastructure** : Le serveur web est invisible depuis l'extérieur ; seul le Proxy est exposé.
+* **Hardening Nginx** : Implémentation de headers de sécurité (`X-Frame-Options`, `X-XSS-Protection`) via Ansible.
+* **Segmentation Réseau** : Configuration de règles de pare-feu pour limiter les déplacements latéraux.
 
-    SVR-AD-01 (Windows Server 2022) : Contrôleur de domaine Active Directory.
+###  Automatisation (Infrastructure as Code)
+* **Déploiement Idempotent** : Configuration reproductible des serveurs Linux (Debian/Ubuntu).
+* **Dynamic Templating** : Utilisation de **Jinja2** pour générer des tableaux de bord d'état système en temps réel.
+* **Gestion des Clés SSH** : Automatisation de la confiance entre le nœud d'administration et les serveurs.
 
-## Fonctionnalités implémentées
-**1. Automatisation via Ansible**
+---
 
-    Hardening Système : Mise à jour automatique, configuration SSH sécurisée (désactivation du login root), et installation d'outils de monitoring.
+##  Aperçu des Playbooks
+* `deploy_web.yml` : Installation de Nginx et déploiement du tableau de bord personnalisé.
+* `deploy_proxy.yml` : Configuration du rôle Reverse Proxy et durcissement des politiques HTTP.
 
-    Déploiement Dynamique : Utilisation de templates Jinja2 pour générer des rapports d'état serveur en temps réel.
-
-    Idempotence : Scripts conçus pour garantir un état système stable et reproductible.
-
-**2. Sécurité Réseau & Reverse Proxy**
-
-    Masquage d'Infrastructure : Le serveur web est dissimulé derrière un Reverse Proxy Nginx.
-
-    Sécurisation des Headers : Implémentation de directives de sécurité (X-Frame-Options, X-XSS-Protection) pour prévenir les attaques de type Clickjacking et XSS.
-
-    Segmentation : Flux réseau contrôlés pour limiter la surface d'attaque.
+##  Résultats obtenus
+Le système permet de servir du contenu dynamique tout en protégeant l'identité du serveur source. En cas de compromission du Proxy, le serveur web reste protégé derrière les règles de filtrage internes.
