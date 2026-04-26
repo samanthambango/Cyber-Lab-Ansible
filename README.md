@@ -37,7 +37,7 @@ Le serveur web (`.11`) est dissimulé. Seul le proxy (`.12`) répond aux requêt
 
 ![Résultat final via Proxy](docs/capture_web.png)
 
----
+
 
 ## 4. Structure des fichiers
 * `/ansible` : Playbooks YAML et inventaire `hosts.ini`.
