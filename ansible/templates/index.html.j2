@@ -1,1 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Serveur - {{ ansible_hostname }}</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f4; padding: 50px; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        .info { color: #7f8c8d; font-size: 1.2em; }
+        .highlight { color: #27ae60; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Rapport d'Automatisation</h1>
+        <p class="info">Ce serveur est piloté par <span class="highlight">Ansible</span>.</p>
+        <hr>
+        <ul>
+            <li><strong>Nom d'hôte :</strong> {{ ansible_hostname }}</li>
+            <li><strong>Système :</strong> {{ ansible_distribution }} {{ ansible_distribution_version }}</li>
+            <li><strong>Adresse IP :</strong> {{ ansible_default_ipv4.address }}</li>
+            <li><strong>Mémoire totale :</strong> {{ ansible_memtotal_mb }} Mo</li>
+        </ul>
+        <p><em>Dernière mise à jour : {{ ansible_date_time.date }} à {{ ansible_date_time.time }}</em></p>
+    </div>
+</body>
+</html>
 
