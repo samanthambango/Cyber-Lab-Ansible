@@ -5,7 +5,6 @@ Ce dépôt contient les fichiers de configuration Ansible utilisés pour déploy
 ## 1. Architecture Réseau
 L'infrastructure est virtualisée sous VirtualBox et isolée derrière un firewall pfSense.
 
-> **[EMPLACEMENT : Insère ici ton schéma réseau]**
 ![Schéma de l'architecture](docs/schema_reseau.png)
 
 **Composants du Lab :**
@@ -36,7 +35,6 @@ Le serveur web (`.11`) est dissimulé. Seul le proxy (`.12`) répond aux requêt
 * **Masquage d'IP** : L'utilisateur final ne connaît jamais l'IP réelle du serveur web.
 * **Headers HTTP** : Protection contre le clickjacking et le XSS via des en-têtes de sécurité.
 
-> **[EMPLACEMENT : Insère ici la capture de ton navigateur affichant le dashboard via l'IP du Proxy]**
 ![Résultat final via Proxy](docs/capture_web.png)
 
 ---
