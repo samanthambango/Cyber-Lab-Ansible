@@ -23,7 +23,6 @@ Le déploiement des serveurs est entièrement automatisé pour garantir une conf
 * Déploiement de pages web dynamiques (Templates Jinja2).
 * Gestion des services et redémarrages automatiques.
 
-> **[EMPLACEMENT : Insère ici la capture de ton terminal avec le succès du playbook]**
 ![Preuve de déploiement Ansible](docs/capture_ansible.png)
 
 
