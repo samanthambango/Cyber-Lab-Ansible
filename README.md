@@ -1,34 +1,54 @@
-#  Network Security & Automation Lab
+# Projet : Automatisation et Sécurisation d'Infrastructure (HomeLab)
 
-Ce projet présente l'automatisation et la sécurisation d'une infrastructure réseau virtualisée via **Ansible**. L'objectif est de démontrer la mise en place d'une architecture résiliente, segmentée et protégée par un Reverse Proxy.
+Ce projet documente la mise en place d'une architecture réseau virtualisée, segmentée par un pare-feu et automatisée avec Ansible.
+## 1. Schéma de l'Architecture
 
-##  Architecture du Réseau
-L'infrastructure est déployée sur **VirtualBox** avec une segmentation réseau via **pfSense**.
+L'infrastructure est isolée dans un réseau interne VirtualBox derrière un **firewall pfSense**.
 
-* **SVR-ADMIN** : Station d'administration et nœud de contrôle Ansible.
-* **SVR-PROXY** : Reverse Proxy Nginx agissant comme unique point d'entrée (DMZ).
-* **SVR-WEB-01** : Serveur d'application isolé du flux internet direct.
-* **SVR-AD-01** : Contrôleur de domaine Active Directory pour la gestion des identités.
+    [METTRE ICI TON SCHÉMA RÉSEAU (Excalidraw ou autre)]
+    ![Schéma Architecture](docs/schema_reseau.png)
 
----
+Détails des VM :
 
-##  Fonctionnalités Clés
+    Gateway : pfSense (Pare-feu & Routage)
 
-###  Sécurité Offensive & Défensive
-* **Masquage d'Infrastructure** : Le serveur web est invisible depuis l'extérieur ; seul le Proxy est exposé.
-* **Hardening Nginx** : Implémentation de headers de sécurité (`X-Frame-Options`, `X-XSS-Protection`) via Ansible.
-* **Segmentation Réseau** : Configuration de règles de pare-feu pour limiter les déplacements latéraux.
+    Contrôleur : SVR-ADMIN (Debian 12) - Nœud de contrôle Ansible
 
-###  Automatisation (Infrastructure as Code)
-* **Déploiement Idempotent** : Configuration reproductible des serveurs Linux (Debian/Ubuntu).
-* **Dynamic Templating** : Utilisation de **Jinja2** pour générer des tableaux de bord d'état système en temps réel.
-* **Gestion des Clés SSH** : Automatisation de la confiance entre le nœud d'administration et les serveurs.
+    DMZ : SVR-PROXY (Debian 12) - Reverse Proxy Nginx
 
----
+    LAN : SVR-WEB-01 (Debian 12) - Serveur d'application isolé
 
-##  Aperçu des Playbooks
-* `deploy_web.yml` : Installation de Nginx et déploiement du tableau de bord personnalisé.
-* `deploy_proxy.yml` : Configuration du rôle Reverse Proxy et durcissement des politiques HTTP.
+    IAM : SVR-AD-01 (Windows Server 2022) - Active Directory
 
-##  Résultats obtenus
-Le système permet de servir du contenu dynamique tout en protégeant l'identité du serveur source. En cas de compromission du Proxy, le serveur web reste protégé derrière les règles de filtrage internes.
+## 2. Automatisation avec Ansible
+
+Utilisation de l'Infrastructure as Code (IaC) pour déployer les services de manière reproductible.
+Tâches réalisées :
+
+    Hardening système (SSH, mises à jour, outils de base).
+
+    Déploiement du serveur Web avec template dynamique Jinja2.
+
+    Configuration du rôle Reverse Proxy sur le nœud frontal.
+
+    [METTRE ICI UNE CAPTURE DE TON TERMINAL APRÈS LE LANCEMENT DU PLAYBOOK (les lignes OK/CHANGED en couleur)]
+    ![Console Ansible](docs/capture_ansible.png)
+
+## 3. Sécurisation (Reverse Proxy)
+
+Mise en place d'un Reverse Proxy pour masquer l'infrastructure interne et durcir les échanges HTTP.
+
+    Masquage d'IP : Le serveur web n'est pas accessible directement depuis l'extérieur.
+
+    Headers de sécurité : Ajout de directives X-Frame-Options et X-XSS-Protection.
+
+    [METTRE ICI LA CAPTURE D'ÉCRAN DE TON DASHBOARD FINAL (ton navigateur avec l'IP du Proxy)]
+    ![Résultat Dashboard](docs/capture_web.png)
+
+## 4. Structure du dépôt
+
+    ansible/ : Contient les playbooks YAML et l'inventaire des hôtes.
+
+    ansible/templates/ : Fichiers Jinja2 pour la génération de pages dynamiques.
+
+    docs/ : Schémas et preuves de fonctionnement.
