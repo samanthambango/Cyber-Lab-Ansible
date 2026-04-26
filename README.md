@@ -13,7 +13,7 @@ L'infrastructure est virtualisée sous VirtualBox et isolée derrière un firewa
 * **SVR-PROXY** : Reverse Proxy Nginx (Point d'entrée unique).
 * **SVR-WEB-01** : Serveur d'application (Isolé du flux direct).
 
----
+
 
 ## 2. Automatisation (Ansible)
 Le déploiement des serveurs est entièrement automatisé pour garantir une configuration identique et sécurisée.
@@ -26,7 +26,7 @@ Le déploiement des serveurs est entièrement automatisé pour garantir une conf
 > **[EMPLACEMENT : Insère ici la capture de ton terminal avec le succès du playbook]**
 ![Preuve de déploiement Ansible](docs/capture_ansible.png)
 
----
+
 
 ## 3. Sécurité (Reverse Proxy)
 Le serveur web (`.11`) est dissimulé. Seul le proxy (`.12`) répond aux requêtes externes.
