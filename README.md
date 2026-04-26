@@ -1,4 +1,4 @@
-# 🛡️ Network Security & Automation Lab
+#  Network Security & Automation Lab
 
 Ce projet présente l'automatisation et la sécurisation d'une infrastructure réseau virtualisée via **Ansible**. L'objectif est de démontrer la mise en place d'une architecture résiliente, segmentée et protégée par un Reverse Proxy.
 
