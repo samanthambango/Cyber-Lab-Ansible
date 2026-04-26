@@ -1,54 +1,47 @@
-# Projet : Automatisation et Sécurisation d'Infrastructure (HomeLab)
+# Lab : Automatisation & Sécurisation d'Infrastructure
 
-Ce projet documente la mise en place d'une architecture réseau virtualisée, segmentée par un pare-feu et automatisée avec Ansible.
-## 1. Schéma de l'Architecture
+Ce dépôt contient les fichiers de configuration Ansible utilisés pour déployer une architecture réseau sécurisée. L'objectif est de masquer un serveur web derrière un Reverse Proxy et de segmenter les flux via un pare-feu.
 
-L'infrastructure est isolée dans un réseau interne VirtualBox derrière un **firewall pfSense**.
+## 1. Architecture Réseau
+L'infrastructure est virtualisée sous VirtualBox et isolée derrière un firewall pfSense.
 
-    [METTRE ICI TON SCHÉMA RÉSEAU (Excalidraw ou autre)]
-    ![Schéma Architecture](docs/schema_reseau.png)
+> **[EMPLACEMENT : Insère ici ton schéma réseau]**
+![Schéma de l'architecture](docs/schema_reseau.png)
 
-Détails des VM :
+**Composants du Lab :**
+* **pfSense** : Pare-feu et gestion du routage.
+* **SVR-ADMIN** : Nœud de contrôle Ansible (Debian).
+* **SVR-PROXY** : Reverse Proxy Nginx (Point d'entrée unique).
+* **SVR-WEB-01** : Serveur d'application (Isolé du flux direct).
 
-    Gateway : pfSense (Pare-feu & Routage)
+---
 
-    Contrôleur : SVR-ADMIN (Debian 12) - Nœud de contrôle Ansible
+## 2. Automatisation (Ansible)
+Le déploiement des serveurs est entièrement automatisé pour garantir une configuration identique et sécurisée.
 
-    DMZ : SVR-PROXY (Debian 12) - Reverse Proxy Nginx
+**Actions réalisées :**
+* Installation et configuration de Nginx.
+* Déploiement de pages web dynamiques (Templates Jinja2).
+* Gestion des services et redémarrages automatiques.
 
-    LAN : SVR-WEB-01 (Debian 12) - Serveur d'application isolé
+> **[EMPLACEMENT : Insère ici la capture de ton terminal avec le succès du playbook]**
+![Preuve de déploiement Ansible](docs/capture_ansible.png)
 
-    IAM : SVR-AD-01 (Windows Server 2022) - Active Directory
+---
 
-## 2. Automatisation avec Ansible
+## 3. Sécurité (Reverse Proxy)
+Le serveur web (`.11`) est dissimulé. Seul le proxy (`.12`) répond aux requêtes externes.
 
-Utilisation de l'Infrastructure as Code (IaC) pour déployer les services de manière reproductible.
-Tâches réalisées :
+**Sécurité appliquée :**
+* **Masquage d'IP** : L'utilisateur final ne connaît jamais l'IP réelle du serveur web.
+* **Headers HTTP** : Protection contre le clickjacking et le XSS via des en-têtes de sécurité.
 
-    Hardening système (SSH, mises à jour, outils de base).
+> **[EMPLACEMENT : Insère ici la capture de ton navigateur affichant le dashboard via l'IP du Proxy]**
+![Résultat final via Proxy](docs/capture_web.png)
 
-    Déploiement du serveur Web avec template dynamique Jinja2.
+---
 
-    Configuration du rôle Reverse Proxy sur le nœud frontal.
-
-    [METTRE ICI UNE CAPTURE DE TON TERMINAL APRÈS LE LANCEMENT DU PLAYBOOK (les lignes OK/CHANGED en couleur)]
-    ![Console Ansible](docs/capture_ansible.png)
-
-## 3. Sécurisation (Reverse Proxy)
-
-Mise en place d'un Reverse Proxy pour masquer l'infrastructure interne et durcir les échanges HTTP.
-
-    Masquage d'IP : Le serveur web n'est pas accessible directement depuis l'extérieur.
-
-    Headers de sécurité : Ajout de directives X-Frame-Options et X-XSS-Protection.
-
-    [METTRE ICI LA CAPTURE D'ÉCRAN DE TON DASHBOARD FINAL (ton navigateur avec l'IP du Proxy)]
-    ![Résultat Dashboard](docs/capture_web.png)
-
-## 4. Structure du dépôt
-
-    ansible/ : Contient les playbooks YAML et l'inventaire des hôtes.
-
-    ansible/templates/ : Fichiers Jinja2 pour la génération de pages dynamiques.
-
-    docs/ : Schémas et preuves de fonctionnement.
+## 4. Structure des fichiers
+* `/ansible` : Playbooks YAML et inventaire `hosts.ini`.
+* `/ansible/templates` : Fichier `index.html.j2` pour le contenu dynamique.
+* `/docs` : Captures d'écran et schémas techniques.
