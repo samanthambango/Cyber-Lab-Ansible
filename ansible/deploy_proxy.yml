@@ -1,1 +1,29 @@
+---
+- name: Transformation de la VM en Reverse Proxy
+  hosts: proxy
+  become: yes
+
+  tasks:
+    - name: Installer Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Configurer la redirection vers le web
+      copy:
+        dest: /etc/nginx/sites-available/default
+        content: |
+          server {
+            listen 80;
+            location / {
+              proxy_pass http://192.168.1.11;
+              proxy_set_header Host $host;
+            }
+          }
+
+    - name: Appliquer la configuration
+      service:
+        name: nginx
+        state: restarted
 
