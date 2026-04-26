@@ -1,4 +1,4 @@
-Infrastructure Automation & Security Lab
+## Infrastructure Automation & Security Lab
 
 Ce dépôt contient les scripts d'automatisation Ansible utilisés pour déployer et sécuriser mon infrastructure réseau personnelle (HomeLab). L'objectif est de simuler un environnement d'entreprise robuste en isolant les services et en centralisant l'administration.
 Architecture du Lab
@@ -13,7 +13,7 @@ L'infrastructure est virtualisée sous VirtualBox et segmentée derrière un fir
 
     SVR-AD-01 (Windows Server 2022) : Contrôleur de domaine Active Directory.
 
-Fonctionnalités implémentées
+## Fonctionnalités implémentées
 1. Automatisation via Ansible
 
     Hardening Système : Mise à jour automatique, configuration SSH sécurisée (désactivation du login root), et installation d'outils de monitoring.
