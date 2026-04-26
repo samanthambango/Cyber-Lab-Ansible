@@ -3,7 +3,7 @@
 Ce dépôt contient les scripts d'automatisation Ansible utilisés pour déployer et sécuriser mon infrastructure réseau personnelle (HomeLab). L'objectif est de simuler un environnement d'entreprise robuste en isolant les services et en centralisant l'administration.
 Architecture du Lab
 
-L'infrastructure est virtualisée sous VirtualBox et segmentée derrière un firewall pfSense.
+L'infrastructure est virtualisée sous VirtualBox et segmentée derrière un firewall **pfSense**.
 
     SVR-ADMIN (Debian) : Centre de contrôle Ansible.
 
@@ -14,7 +14,7 @@ L'infrastructure est virtualisée sous VirtualBox et segmentée derrière un fir
     SVR-AD-01 (Windows Server 2022) : Contrôleur de domaine Active Directory.
 
 ## Fonctionnalités implémentées
-1. Automatisation via Ansible
+**1. Automatisation via Ansible**
 
     Hardening Système : Mise à jour automatique, configuration SSH sécurisée (désactivation du login root), et installation d'outils de monitoring.
 
@@ -22,7 +22,7 @@ L'infrastructure est virtualisée sous VirtualBox et segmentée derrière un fir
 
     Idempotence : Scripts conçus pour garantir un état système stable et reproductible.
 
-2. Sécurité Réseau & Reverse Proxy
+**2. Sécurité Réseau & Reverse Proxy**
 
     Masquage d'Infrastructure : Le serveur web est dissimulé derrière un Reverse Proxy Nginx.
 
